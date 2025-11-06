@@ -27,6 +27,7 @@ public class trabalho {
         Scanner scanner = new Scanner(System.in);
         informacoes(scanner);
         gerenciarVagas();
+        ocupação(scanner);
         AbrirMenu(scanner);
 
         // testes
@@ -88,12 +89,12 @@ public class trabalho {
         estacionamento[3][1] = "D2=C:21:00";
 
         // 4. Impressão da matriz com formatação.
-        for (int i = 0; i < corredores; i++) {
-            for (int j = 0; j < colunas; j++) {
-                System.out.printf("%s\t", estacionamento[i][j]);
-            }
-            System.out.println();
-        }
+      // for (int i = 0; i < corredores; i++) {
+      //     for (int j = 0; j < colunas; j++) {
+      //         System.out.printf("%s\t", estacionamento[i][j]);
+      //     }
+      //     System.out.println();
+      // }
     }
 
     // devolve um array para futuramente poder usar ele em outras funcionalidades
@@ -203,7 +204,7 @@ public class trabalho {
             vaga = scanner.nextLine();
             indices = converterVagaParaIndices(vaga);
         }
-        
+
         int linhaParaOcupar = indices[0];
         int colunaParaOcupar = indices[1];
         if (estacionamento[linhaParaOcupar][colunaParaOcupar] != ".") {
@@ -238,6 +239,36 @@ public class trabalho {
     }
 
     public static void ocupação(Scanner scanner) {
+        int quantidadeCarros = 0; int quantidadeMotos = 0; int quantidadeVans = 0; 
+        int vagasTotais = 0; int vagasOcupadas = 0;
+        String [][] ocupacao = estacionamento.clone();
+        for (int i = 0; i < corredores; i++) {
+            for (int j = 0; j < colunas; j++) {
+                vagasTotais++;
+                if (ocupacao[i][j] != ".") {
+                    vagasOcupadas++;
+                    String[] informacao = estacionamento[i][j].split("[=:]");
+                    ocupacao[i][j] = informacao[1];
+                    if (ocupacao[i][j].equals("C")) {
+                        quantidadeCarros++;
+                    } else if  (ocupacao[i][j].equals("M")) {
+                        quantidadeMotos++;
+                    } else {
+                        quantidadeVans++;
+                    }
+                }
+            }
+            
+
+        }
+
+        // 4. Impressão da matriz com formatação.
+        for (int i = 0; i < corredores; i++) {
+            for (int j = 0; j < colunas; j++) {
+                System.out.printf("%s\t", ocupacao[i][j]);
+            }
+            System.out.println();
+        }
 
     }
 
