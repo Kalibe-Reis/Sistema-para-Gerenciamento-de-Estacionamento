@@ -460,7 +460,48 @@ public class trabalho {
     }
 
     public static void financeiro(Scanner scanner) {
+ System.out.println("\n--- 💲 Relatório Financeiro (Vagas já liberadas) ---");
 
+        if (transacoes.isEmpty()) {
+            System.out.println("Nenhum veículo saiu do estacionamento ainda.");
+            System.out.println("\nPressione Enter para voltar ao menu...");
+            scanner.nextLine(); 
+            return;
+        }
+
+        double totalMoto = 0, totalCarro = 0, totalVan = 0;
+        int countMoto = 0, countCarro = 0, countVan = 0;
+
+        // Processa a lista de transações
+        for (String t : transacoes) {
+            // Formato esperado: "TIPO:VALOR" (ex: "C:13.50")
+            try {
+                String[] partes = t.split(":");
+                String tipo = partes[0];
+                double valor = Double.parseDouble(partes[1]);
+
+                switch (tipo) {
+                    case "M":
+                        countMoto++;
+                        totalMoto += valor;
+                        break;
+                    case "C":
+                        countCarro++;
+                        totalCarro += valor;
+                        break;
+                    case "V":
+                        countVan++;
+                        totalVan += valor;
+                        break;
+                }
+            } catch (Exception e) {
+                // Ignora transações erradas
+                System.out.println("Aviso: Ignorando transação mal formatada: " + t);
+            }
+        }
+
+
+        
     }
 
     public static void salvarDados(Scanner scanner) {
