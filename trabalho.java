@@ -464,7 +464,58 @@ public class trabalho {
     }
 
     public static void salvarDados(Scanner scanner) {
+     System.out.print("Digite o nome do arquivo: ");
+        String nomeArquivo = scanner.nextLine();
 
+        File arquivo = new File(nomeArquivo);
+
+        if (!arquivo.exists()) {
+            System.out.print("O arquivo não existe, deseja criar ele? (sim/não)");
+            String resposta = scanner.nextLine();
+
+            if (resposta.equalsIgnoreCase("sim") || resposta.equalsIgnoreCase("s")) {
+                try {
+                    arquivo.createNewFile();
+                    System.out.print("Arquivo criado com sucesso!");
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                    return;
+                }
+            }
+
+            else {
+        System.out.println("Operação cancelada.");
+        return;
+           }
+        }
+
+        
+            try {
+            FileWriter writer = new FileWriter( arquivo, true); 
+            BufferedWriter buffer = new BufferedWriter(writer);
+            
+
+            for (int i = 0; i <corredores; i++) {
+                for (int j = 0; j < colunas; j ++) {
+                    if (!estacionamento[i][j].equals(".")) {
+                        String vaga = ConverterIndicesParaVaga(i, j);
+                        buffer.write(vaga + "=" + estacionamento[i][j]);
+                        buffer.newLine();
+                    }
+                }
+            }
+            
+            
+        
+        buffer.close(); // fecha o buffer (e salva tudo)
+        System.out.println("Dados salvos com sucesso em " + nomeArquivo);
+
+             } catch (IOException e) {
+        System.out.println("Erro ao salvar os dados: " + e.getMessage());
+    }
+        }
+        
     }
 
     // === Integrantes ===
