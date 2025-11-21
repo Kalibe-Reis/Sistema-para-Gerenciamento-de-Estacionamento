@@ -460,8 +460,9 @@ public class trabalho {
     }
 
     public static void financeiro(Scanner scanner) {
- System.out.println("\n--- 💲 Relatório Financeiro (Vagas já liberadas) ---");
+ System.out.println("\n--- Relatório Financeiro ---");
 
+       
         if (transacoes.isEmpty()) {
             System.out.println("Nenhum veículo saiu do estacionamento ainda.");
             System.out.println("\nPressione Enter para voltar ao menu...");
@@ -474,7 +475,6 @@ public class trabalho {
 
         // Processa a lista de transações
         for (String t : transacoes) {
-            // Formato esperado: "TIPO:VALOR" (ex: "C:13.50")
             try {
                 String[] partes = t.split(":");
                 String tipo = partes[0];
@@ -500,9 +500,22 @@ public class trabalho {
             }
         }
 
+        double valorTotalGeral = totalMoto + totalCarro + totalVan;
+        int quantTotalGeral = countMoto + countCarro + countVan;
 
+        // Imprime a tabela formatada (similar ao PDF)
+        System.out.println("+-----------------------------------------+");
+        System.out.printf("| %-10s | %-10s | %-12s |\n", "Veículo", "Quant.", "Valor (R$)");
+        System.out.println("+-----------------------------------------+");
+        System.out.printf("| %-10s | %-10d | R$ %-10.2f |\n", "Moto", countMoto, totalMoto);
+        System.out.printf("| %-10s | %-10d | R$ %-10.2f |\n", "Carro", countCarro, totalCarro);
+        System.out.printf("| %-10s | %-10d | R$ %-10.2f |\n", "Van", countVan, totalVan);
+        System.out.println("+-----------------------------------------+");
+        System.out.printf("| %-10s | %-10d | R$ %-10.2f |\n", "Total", quantTotalGeral, valorTotalGeral);
+        System.out.println("+-----------------------------------------+");
         
-    }
+        System.out.println("\nPressione Enter para voltar ao menu...");
+        scanner.nextLine();
 
     public static void salvarDados(Scanner scanner) {
      System.out.print("Digite o nome do arquivo: ");
